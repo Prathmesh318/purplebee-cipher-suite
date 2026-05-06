@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Prathmesh M | PurplebeeSec" },
+      { name: "description", content: "Modern cybersecurity portfolio showcasing offensive security, VAPT, SOC, Purple Teaming, security labs, writeups, and enterprise security experience." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Prathmesh M | PurplebeeSec" },
+      { property: "og:description", content: "Modern cybersecurity portfolio showcasing offensive security, VAPT, SOC, Purple Teaming, security labs, writeups, and enterprise security experience." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Prathmesh M | PurplebeeSec" },
+      { name: "twitter:description", content: "Modern cybersecurity portfolio showcasing offensive security, VAPT, SOC, Purple Teaming, security labs, writeups, and enterprise security experience." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/d8b5fffe-c414-4660-a5ee-6c29c748a9cf" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/d8b5fffe-c414-4660-a5ee-6c29c748a9cf" },
     ],
     links: [
       {
