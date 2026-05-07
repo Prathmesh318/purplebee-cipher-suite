@@ -21,9 +21,9 @@ const skillCategories: SkillCategory[] = [
     skills: ["CrowdStrike Falcon", "SentinelOne", "Cloudflare WAF", "Proofpoint", "Trellix DLP", "Barracuda", "EDR/XDR"],
   },
   {
-    title: "Scripting & Platforms",
+    title: "Security & Automation",
     icon: "💻",
-    skills: ["Python", "Bash", "PowerShell", "Kali Linux", "Ubuntu", "Git/GitHub", "AWS IAM", "Active Directory"],
+    skills: ["Python", "Bash", "PowerShell", "Linux", "Git", "API Testing", "Reconnaissance", "HTTP Protocol Analysis"],
   },
 ];
 
