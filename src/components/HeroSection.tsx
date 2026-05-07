@@ -4,37 +4,39 @@ import profileImage from "../assets/profile-blazer.png";
 
 const terminalSequences = [
   [
-    "$ whoami",
-    "prathmesh_m — offensive security engineer",
-    "$ cat specialization.txt",
-    "Web App VAPT | Purple Teaming | SOC | AppSec",
-    "$ nmap -sV target.purplebeesec.io",
-    "PORT   STATE  SERVICE",
-    "443    open   portfolio-v2.0",
-    "$ status --ready",
+    "$ nmap -Pn -sV 10.10.14.5",
+    "PORT   STATE  SERVICE  VERSION",
+    "22/tcp open   ssh      OpenSSH 8.9",
+    "80/tcp open   http     Apache 2.4.52",
+    "443/tcp open  https    nginx 1.18",
+    "$ gobuster dir -u https://target.com -w common.txt",
+    "/admin        (Status: 403)",
+    "/api/v1       (Status: 200)",
+    "$ cat findings.log",
     "[ ✓ ] Available for Security Engineering & VAPT opportunities in your organization",
   ],
   [
-    "$ curl -s https://purplebeesec.io/api/status",
-    '{ "engineer": "prathmesh_m", "status": "active" }',
-    "$ gobuster dir -u https://target.local -w common.txt",
-    "/admin        (Status: 403)",
-    "/api/v1       (Status: 200)",
-    "/backup       (Status: 200) [Size: 4096]",
-    "$ cat findings.txt",
-    "[CRITICAL] Unauthenticated API endpoint exposed",
-    "[ ✓ ] Report submitted to client",
+    "$ ffuf -u https://target.com/FUZZ -w wordlist.txt -mc 200,301",
+    "[Status: 200] → /dashboard",
+    "[Status: 301] → /admin/login",
+    "$ curl -I https://target.com",
+    "HTTP/2 200",
+    "x-powered-by: Express",
+    "$ subfinder -d company.com -silent",
+    "api.company.com",
+    "staging.company.com",
+    "[ ✓ ] Available for Security Engineering & VAPT opportunities in your organization",
   ],
   [
-    "$ ffuf -u https://target.local/FUZZ -w wordlist.txt",
-    "[Status: 200] → /dashboard",
-    "[Status: 302] → /admin/login",
-    "$ curl -X POST /api/auth -d 'admin:admin'",
-    '{ "token": "eyJhbGci...", "role": "admin" }',
-    "$ echo 'Authentication bypass confirmed'",
-    "[HIGH] Default credentials on admin panel",
-    "$ status --engagement",
-    "[ ✓ ] VAPT engagement in progress",
+    "$ burpsuite --project-file recon.burp",
+    "[*] Loading project configuration...",
+    "[*] Target scope set: *.target.com",
+    "$ sqlmap -u 'https://target.com/search?q=1' --batch",
+    "[INFO] parameter 'q' is vulnerable",
+    "$ echo 'SQL Injection confirmed — documenting PoC'",
+    "[HIGH] Parameter injection in search endpoint",
+    "$ nmap -Pn -sV -sC 10.10.14.5 -oN scan.txt",
+    "[ ✓ ] Available for Security Engineering & VAPT opportunities in your organization",
   ],
 ];
 
@@ -82,7 +84,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8 }}
           >
             <div className="inline-block mb-6 px-4 py-1.5 rounded-full glass text-xs font-mono text-primary tracking-wider">
-              OFFENSIVE SECURITY • VAPT • PURPLE TEAMING
+              WEB APPLICATION SECURITY • VAPT • ENTERPRISE SECURITY
             </div>
 
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">
@@ -91,7 +93,7 @@ export default function HeroSection() {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl">
-              Cybersecurity Professional — Breaking systems to make them stronger.
+              Focused on Web Application Security, VAPT, and Enterprise Security Operations.
               <br />
               <span className="text-primary font-mono text-sm">PurpleBeeSec</span>
             </p>
@@ -131,8 +133,8 @@ export default function HeroSection() {
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-primary/30 to-accent/30 blur-lg" />
               <img
                 src={profileImage}
-                alt="Prathmesh M — Offensive Security Engineer"
-                className="relative w-72 md:w-80 rounded-2xl object-cover aspect-[3/4] border border-cyber-border"
+                alt="Prathmesh M — Cybersecurity Professional"
+                className="relative w-56 md:w-80 rounded-2xl object-cover aspect-[3/4] border border-cyber-border"
                 loading="eager"
               />
             </div>

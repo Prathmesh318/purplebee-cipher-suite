@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 
 const items = [
-  { label: "CEH Practical", progress: 60 },
-  { label: "CPENT", progress: 30 },
-  { label: "Advanced Web Hacking", progress: 75 },
-  { label: "Active Directory Attacks", progress: 40 },
-  { label: "Cloud Security (AWS)", progress: 50 },
+  { label: "CEH Practical Preparation", progress: 60 },
+  { label: "Advanced Burp Suite Workflows", progress: 55 },
+  { label: "Web Exploitation Methodologies", progress: 70 },
+  { label: "API Security Testing", progress: 40 },
+  { label: "Active Directory Fundamentals", progress: 35 },
 ];
 
 export default function LearningSection() {

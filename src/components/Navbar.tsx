@@ -51,7 +51,7 @@ export default function Navbar() {
             href="#contact"
             className="text-sm font-medium px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
           >
-            Hire Me
+            Security Opportunities
           </a>
         </div>
 
