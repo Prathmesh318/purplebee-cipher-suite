@@ -1,42 +1,102 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import projects from "../data/projects";
+import type { Project } from "../data/projects";
 
-const projects = [
-  {
-    name: "Phishing_Email_Analysis",
-    desc: "Email header analysis & phishing detection toolkit",
-    tags: ["Python", "Email Security", "Threat Intel"],
-    github: "https://github.com/Prathmesh318/Phishing_Email_Analysis",
-  },
-  {
-    name: "Nmap_Port_Scan",
-    desc: "Automated port scanning & service enumeration tool",
-    tags: ["Python", "Nmap", "Recon"],
-    github: "https://github.com/Prathmesh318/Nmap_Port_Scan",
-  },
-  {
-    name: "Vuln_Scan",
-    desc: "Web vulnerability scanner for common security flaws",
-    tags: ["Python", "OWASP", "Automation"],
-    github: "https://github.com/Prathmesh318/Vuln_Scan",
-  },
-  {
-    name: "Firewall",
-    desc: "Network firewall implementation and rule management",
-    tags: ["Networking", "Security", "Firewall"],
-    github: "https://github.com/Prathmesh318/Firewall",
-  },
-  {
-    name: "Prathmesh318.github.io",
-    desc: "Cybersecurity portfolio website",
-    tags: ["HTML", "Portfolio", "Web"],
-    github: "https://github.com/Prathmesh318/Prathmesh318.github.io",
-  },
-];
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const [expanded, setExpanded] = useState(false);
 
-const labs = [
-  { name: "TryHackMe Labs", stat: "50+ rooms completed", detail: "Top 8% global rank, offensive security focus" },
-  { name: "Attack Kill-Chain", stat: "Full simulation", detail: "Recon → Access → Exploit → Post-Exploit workflows" },
-  { name: "Virtual Lab Env", stat: "Custom built", detail: "Segmented subnets, firewall rules, Wireshark analysis" },
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+      className="glass glass-hover rounded-xl overflow-hidden"
+    >
+      {/* Header image placeholder */}
+      <div className="h-48 bg-secondary flex items-center justify-center border-b border-border">
+        <span className="text-muted-foreground text-sm font-mono">Add Project Screenshot</span>
+      </div>
+
+      <div className="p-6">
+        <h3 className="text-lg font-bold text-foreground mb-2">{project.title}</h3>
+        <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
+
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {project.tags.map((t) => (
+            <span key={t} className="text-[10px] font-mono px-2.5 py-1 rounded-md bg-secondary text-secondary-foreground">{t}</span>
+          ))}
+        </div>
+
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="text-xs font-mono text-primary hover:text-accent transition-colors"
+        >
+          {expanded ? "▲ Collapse Details" : "▼ View Case Study"}
+        </button>
+
+        <AnimatePresence>
+          {expanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden"
+            >
+              <div className="mt-4 space-y-4 border-t border-border pt-4">
+                <div>
+                  <h4 className="text-xs font-bold text-primary mb-1">Methodology</h4>
+                  <p className="text-xs text-muted-foreground">{project.methodology}</p>
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-primary mb-1">Tools Used</h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tools.map((t) => (
+                      <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">{t}</span>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-primary mb-1">Findings</h4>
+                  <p className="text-xs text-muted-foreground">{project.findings}</p>
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-primary mb-1">Remediation</h4>
+                  <p className="text-xs text-muted-foreground">{project.remediation}</p>
+                </div>
+
+                {/* Screenshot placeholders */}
+                <div>
+                  <h4 className="text-xs font-bold text-primary mb-2">Evidence & Screenshots</h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    {project.screenshots.map((ss) => (
+                      <div key={ss.label} className="rounded-lg bg-secondary border border-border p-4 flex flex-col items-center justify-center min-h-[100px]">
+                        {ss.src ? (
+                          <img src={ss.src} alt={ss.label} className="rounded max-w-full" />
+                        ) : (
+                          <span className="text-[10px] text-muted-foreground font-mono text-center">{ss.label}</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
+  );
+}
+
+// GitHub repos (kept from original)
+const githubRepos = [
+  { name: "Phishing_Email_Analysis", desc: "Email header analysis & phishing detection toolkit", tags: ["Python", "Email Security"], github: "https://github.com/Prathmesh318/Phishing_Email_Analysis" },
+  { name: "Nmap_Port_Scan", desc: "Automated port scanning & service enumeration", tags: ["Python", "Nmap"], github: "https://github.com/Prathmesh318/Nmap_Port_Scan" },
+  { name: "Vuln_Scan", desc: "Web vulnerability scanner for common flaws", tags: ["Python", "OWASP"], github: "https://github.com/Prathmesh318/Vuln_Scan" },
+  { name: "Firewall", desc: "Network firewall implementation", tags: ["Networking", "Security"], github: "https://github.com/Prathmesh318/Firewall" },
 ];
 
 export default function ProjectsSection() {
@@ -44,13 +104,21 @@ export default function ProjectsSection() {
     <section id="projects" className="relative z-10">
       <div className="section-container">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-2"><span className="gradient-text">Projects & Labs</span></h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-2"><span className="gradient-text">Projects & Case Studies</span></h2>
           <div className="w-16 h-1 bg-primary rounded-full mb-12" />
         </motion.div>
 
-        <h3 className="text-lg font-semibold text-foreground mb-6">GitHub Repositories</h3>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+        {/* Case Study Cards */}
+        <div className="grid md:grid-cols-2 gap-6 mb-16">
           {projects.map((p, i) => (
+            <ProjectCard key={p.id} project={p} index={i} />
+          ))}
+        </div>
+
+        {/* GitHub Repos */}
+        <h3 className="text-lg font-semibold text-foreground mb-6">Security Research & Scripts</h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {githubRepos.map((p, i) => (
             <motion.a
               key={p.name}
               href={p.github}
@@ -69,7 +137,7 @@ export default function ProjectsSection() {
                 </svg>
                 <span className="text-sm font-mono font-semibold text-foreground group-hover:text-primary transition-colors">{p.name}</span>
               </div>
-              <p className="text-xs text-muted-foreground mb-3">{p.desc}</p>
+              <p className="text-xs text-muted-foreground mb-2">{p.desc}</p>
               <div className="flex flex-wrap gap-1.5">
                 {p.tags.map((t) => (
                   <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded bg-secondary text-secondary-foreground">{t}</span>
@@ -79,22 +147,15 @@ export default function ProjectsSection() {
           ))}
         </div>
 
-        <h3 className="text-lg font-semibold text-foreground mb-6">Security Labs</h3>
-        <div className="grid sm:grid-cols-3 gap-4">
-          {labs.map((l, i) => (
-            <motion.div
-              key={l.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="glass rounded-xl p-5"
-            >
-              <h4 className="text-sm font-bold text-foreground">{l.name}</h4>
-              <p className="text-lg font-bold text-primary mt-1">{l.stat}</p>
-              <p className="text-xs text-muted-foreground mt-1">{l.detail}</p>
-            </motion.div>
-          ))}
+        <div className="text-center">
+          <a
+            href="https://github.com/Prathmesh318"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-6 py-3 rounded-lg glass glass-hover font-medium text-primary text-sm hover:glow-cyber transition-all duration-300"
+          >
+            View All GitHub Projects →
+          </a>
         </div>
       </div>
     </section>
